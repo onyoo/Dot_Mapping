@@ -9,8 +9,8 @@ class DotsController < ApplicationController
   end
 
   def create
-    Dot.create(dot_params)
-    render nothing: true
+    dot = Dot.create(dot_params)
+    render json: dot
   end
 
   def destroy
