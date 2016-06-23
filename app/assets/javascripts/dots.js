@@ -3,12 +3,13 @@ $(window).load(function() { // instead of $(document).ready because rails data n
   getId();
   createListener();
   destroyListener();
+  
 });
 
 var lastId;
+var colors = [ "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk" ]
 
 function getId() {
-
   $.get('dots', function(dots) {
     if (dots.length > 0) {
       lastId = dots[dots.length - 1].id;
@@ -16,19 +17,20 @@ function getId() {
       lastId = 0;
     };
   });
-
 };
 
 function createListener() {
   $("#target").on('click', function(e) {
     var x = e.clientX ;
     var y = e.clientY;
+    var color = colors[Math.floor(Math.random() * 10)];
 
-    $("#previous-dots").append('<canvas class="dot" id="' + (lastId + 1) + '" width="30" height="30" style="position:absolute; left:'+x+'px; top:'+y+'px; background-color:red;">');
+    $("#previous-dots").append('<canvas class="dot" id="' + (lastId + 1) + '" width="30" height="30" style="position:absolute; left:'+x+'px; top:'+y+'px; background-color:' + color + ';">');
 
-    $.post('/dots', {'dot': {'x': x, 'y': y}});
+    $.post('/dots', { 'dot': { 'x': x, 'y': y, 'color': color } });
+
     var dot = $("#previous-dots")[0].lastChild;
-    dot.addEventListener('click', clickRemove, false)
+    dot.addEventListener('click', clickRemove, false);
 
     lastId++;
   });
@@ -52,13 +54,3 @@ function clickRemove(e) {
 function removeDot(id) {
   $(document.getElementById(id)).remove();
 };
-
-//
-// function startListening() {
-//   $("#target").on('click', function(e) {
-//     var x = e.clientX;
-//     var y = e.clientY;
-//
-//     $("#target").html('<img src="/assets/dot.png" width="20" height="20" style="position:relative;left:'+x+'px; top:'+y+'px; ">')
-//   });
-// };

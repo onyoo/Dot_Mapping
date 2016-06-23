@@ -21,6 +21,6 @@ class DotsController < ApplicationController
   private
 
   def dot_params
-    params.require(:dot).permit(:x,:y)
+    params.require(:dot).permit(:x,:y,:color)
   end
 end
