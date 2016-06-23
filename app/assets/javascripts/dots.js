@@ -24,7 +24,7 @@ function createListener() {
     var x = e.clientX ;
     var y = e.clientY;
 
-    $("#previous-dots").append('<img class="dot" id="' + (lastId + 1) + '" src="/assets/dot.png" width="20" height="20" style="position:absolute; left:'+x+'px; top:'+y+'px; ">');
+    $("#previous-dots").append('<canvas class="dot" id="' + (lastId + 1) + '" width="30" height="30" style="position:absolute; left:'+x+'px; top:'+y+'px; background-color:red;">');
 
     $.post('/dots', {'dot': {'x': x, 'y': y}});
     var dot = $("#previous-dots")[0].lastChild;

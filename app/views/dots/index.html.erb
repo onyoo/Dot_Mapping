@@ -4,7 +4,8 @@
 <div id='previous-dots'>
 
   <% @dots.each do |dot| %>
-    <img class="dot" id="<%=dot.id%>" src="/assets/dot.png" width="20" height="20" style='position:absolute; left:<%=dot.x.to_s%>px; top:<%=dot.y.to_s%>px;'>
+    <canvas class="dot" id="<%=dot.id%>" width="30" height="30" style='position:absolute; left:<%=dot.x.to_s%>px; top:<%=dot.y.to_s%>px; background-color:red;'>
+    <!-- <img class="dot" id="<%=dot.id%>" src="/assets/dot.png" width="20" height="20" style='position:absolute; left:<%=dot.x.to_s%>px; top:<%=dot.y.to_s%>px;'> -->
   <% end %>
 
 </div>
