@@ -1,0 +1,23 @@
+// Place all the styles related to the dots controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+};
+
+#target {
+  height: 100%;
+};
+
+#directions {
+  position: absolute;
+  top: 2em;
+  left: 2em;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 1em;
+  z-index: -1;
+}

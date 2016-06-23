@@ -1,0 +1,12 @@
+
+<div id='target'></div>
+
+<div id='previous-dots'>
+
+  <% @dots.each do |dot| %>
+    <img src="/assets/dot.png" width="20" height="20" style='position:absolute; left:<%=dot.x.to_s%>px; top:<%=dot.y.to_s%>px;'>
+  <% end %>
+
+</div>
+
+<div id='directions'>Click anywhere to place the dot.</div>
