@@ -17,6 +17,9 @@ function listenForClicks() {
     $.post('/dots', { 'dot': { 'x': x, 'y': y, 'color': color } })
       .success(function(dot) {
         appendDot(dot, x, y, color);
+      })
+      .error(function(e) {
+        console.log(e);
       });
 
   });
@@ -41,8 +44,8 @@ function clickRemove(e) {
   $.ajax({
     url: '/dots/' + id,
     method: 'DELETE'
-  }).success(function() {
-    removeDot(id);
+  }).success(function(dot) {
+    removeDot(dot.id);
   }).error(function(e) {
     console.log(e);
   });

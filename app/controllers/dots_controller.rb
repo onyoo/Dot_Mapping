@@ -14,8 +14,8 @@ class DotsController < ApplicationController
   end
 
   def destroy
-    Dot.destroy(params[:id])
-    render nothing: true
+    dot = Dot.destroy(params[:id])
+    render json: dot
   end
 
   private
