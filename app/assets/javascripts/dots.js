@@ -3,7 +3,7 @@ $(window).load(function() { // instead of $(document).ready because rails data n
   getId();
   createListener();
   destroyListener();
-  
+  makeDots();
 });
 
 var lastId;
@@ -25,7 +25,8 @@ function createListener() {
     var y = e.clientY;
     var color = colors[Math.floor(Math.random() * 10)];
 
-    $("#previous-dots").append('<canvas class="dot" id="' + (lastId + 1) + '" width="30" height="30" style="position:absolute; left:'+x+'px; top:'+y+'px; background-color:' + color + ';">');
+    $("#previous-dots").append('<canvas class="dots" id="' + (lastId + 1) + '" width="30" height="30" data-color="'+color+'" style="position:absolute; left:'+x+'px; top:'+y+'px;">');
+    drawDot(document.getElementById(lastId + 1))
 
     $.post('/dots', { 'dot': { 'x': x, 'y': y, 'color': color } });
 
@@ -37,7 +38,7 @@ function createListener() {
 };
 
 function destroyListener() {
-  $('.dot').on('click', function(e) {
+  $('.dots').on('click', function(e) {
     clickRemove(e);
   });
 };
@@ -53,4 +54,21 @@ function clickRemove(e) {
 
 function removeDot(id) {
   $(document.getElementById(id)).remove();
+};
+
+function makeDots() {
+  var dots = document.getElementsByClassName('dots');
+
+  for (var i = 0; i < dots.length ; i++) {
+    drawDot(dots[i]);
+  };
+};
+
+function drawDot(dot) {
+  var ctx = dot.getContext("2d");
+  ctx.beginPath();
+  ctx.arc(15, 15, 10, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.fillStyle = $(dot).data('color');
+  ctx.fill();
 };

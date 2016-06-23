@@ -7,7 +7,7 @@
 
   <% @dots.each do |dot| %>
 
-    <canvas class="dot" id="<%=dot.id%>" width="30" height="30" style='position:absolute; left:<%=dot.x.to_s%>px; top:<%=dot.y.to_s%>px; background-color:<%=dot.color%>;'></canvas>
+    <canvas class="dots" id="<%=dot.id%>" width="30" height="30" data-color="<%=dot.color%>" style='position:absolute; left:<%=dot.x.to_s%>px; top:<%=dot.y.to_s%>px;'></canvas>
 
   <% end %>
 
