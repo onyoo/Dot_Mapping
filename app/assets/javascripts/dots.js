@@ -62,9 +62,9 @@ function removeDot(id) {
 
 function appendDots (dots) {
   for(var i = 0; dots.length > i; i++) {
-    var d = dots[i]
-    
-    $("#previous-dots").append('<canvas class="dots" id="' + d.id + '" width="30" height="30" data-color="'+d].color+'" style="position:absolute; left:'+d.x+'px; top:'+d.y+'px;">');
+    var d = dots[i];
+
+    $("#previous-dots").append('<canvas class="dots" id="' + d.id + '" width="30" height="30" data-color="'+d.color+'" style="position:absolute; left:'+d.x+'px; top:'+d.y+'px;">');
     drawDot(document.getElementById(d.id));
   };
 };
