@@ -1,27 +1,56 @@
 
-$(document).ready(function() {
+$(window).load(function() { // instead of $(document).ready because rails data not loading
   getId();
-  startListening();
+  createListener();
+  destroyListener();
 });
 
-var counter = 0;
-var color =["red, green, blue, black, yellow,"]
-
+var lastId;
 
 function getId() {
-  debugger;
+
+  $.get('dots', function(dots) {
+    if (dots.length > 0) {
+      lastId = dots[dots.length - 1].id;
+    } else {
+      lastId = 0;
+    };
+  });
+
 };
 
-function startListening() {
+function createListener() {
   $("#target").on('click', function(e) {
-    var x = e.clientX - (counter * 20);
+    var x = e.clientX ;
     var y = e.clientY;
 
-    $("#target").append('<img data-id="' + (counter+1) + '" src="/assets/dot.png" width="20" height="20" style="position:relative; left:'+x+'px; top:'+y+'px; ">')
+    $("#previous-dots").append('<img class="dot" id="' + (lastId + 1) + '" src="/assets/dot.png" width="20" height="20" style="position:absolute; left:'+x+'px; top:'+y+'px; ">');
 
-    $.post('/dots', {'dot': {'x': x, 'y': y}})
-    counter++;
+    $.post('/dots', {'dot': {'x': x, 'y': y}});
+    var dot = $("#previous-dots")[0].lastChild;
+    dot.addEventListener('click', clickRemove, false)
+
+    lastId++;
   });
+};
+
+function destroyListener() {
+  $('.dot').on('click', function(e) {
+    clickRemove(e);
+  });
+};
+
+function clickRemove(e) {
+  var id = e.currentTarget.id;
+  $.ajax({
+    url: '/dots/' + id,
+    method: 'DELETE'
+  })
+  .success(removeDot(id));
+};
+
+function removeDot(id) {
+  $(document.getElementById(id)).remove();
 };
 
 //
